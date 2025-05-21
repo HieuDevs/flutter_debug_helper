@@ -1,0 +1,19 @@
+name: flutter_debug_helper
+description: "A Flutter package to help you debug your app"
+version: 1.0.0
+homepage: https://github.com/HieuDevs/flutter_debug_helper
+repository: https://github.com/HieuDevs/flutter_debug_helper
+issue_tracker: https://github.com/HieuDevs/flutter_debug_helper/issues
+
+environment:
+  sdk: ^3.7.2
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
