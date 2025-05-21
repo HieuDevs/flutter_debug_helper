@@ -36,7 +36,12 @@ class StackTraceOverlay extends StatefulWidget {
   /// [child] is the widget below the overlay.
   /// [onLogs] is an optional callback for error logs.
   /// [onlyDev] controls if the overlay only appears in development mode.
-  const StackTraceOverlay({super.key, required this.child, this.onLogs, this.onlyDev = true});
+  const StackTraceOverlay({
+    super.key,
+    required this.child,
+    this.onLogs,
+    this.onlyDev = true,
+  });
 
   /// The widget below the overlay.
   final Widget child;
@@ -75,7 +80,10 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
         }
         final allLines = error?.stack?.toString().split('\n') ?? [];
         previewLines = allLines;
-        relevantLines = StackParser.parseRelevantLines(error?.stack, _packageName!);
+        relevantLines = StackParser.parseRelevantLines(
+          error?.stack,
+          _packageName!,
+        );
       });
       widget.onLogs?.call(previewLines);
     });
@@ -91,7 +99,9 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
   Widget build(BuildContext context) {
     final error = ErrorCapture().lastError;
     if (_packageName == null) {
-      return const Center(child: CircularProgressIndicator(color: Colors.white));
+      return const Center(
+        child: CircularProgressIndicator(color: Colors.white),
+      );
     }
 
     return Stack(
@@ -108,17 +118,25 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                   alignment: Alignment.center,
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 32.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 32.0,
+                      ),
                       child: AnimatedScale(
                         scale: _isShowOverlay ? 1 : 0.97,
                         duration: const Duration(milliseconds: 200),
                         child: ConstrainedBox(
-                          constraints: const BoxConstraints(maxWidth: 540, maxHeight: 640),
+                          constraints: const BoxConstraints(
+                            maxWidth: 540,
+                            maxHeight: 640,
+                          ),
                           child: Card(
                             elevation: 32,
                             color: Colors.white,
                             surfaceTintColor: Colors.red.shade50,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(28),
+                            ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -126,14 +144,22 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                                 // Modern error header with accent bar
                                 Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+                                    borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(28),
+                                    ),
                                     gradient: LinearGradient(
-                                      colors: [Colors.red.shade400, Colors.red.shade700],
+                                      colors: [
+                                        Colors.red.shade400,
+                                        Colors.red.shade700,
+                                      ],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
                                     ),
                                   ),
-                                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 18,
+                                  ),
                                   child: Row(
                                     children: [
                                       Container(
@@ -142,21 +168,29 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                                           shape: BoxShape.circle,
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.red.withValues(alpha: .2),
+                                              color: Colors.red.withValues(
+                                                alpha: .2,
+                                              ),
                                               blurRadius: 8,
                                               offset: const Offset(0, 2),
                                             ),
                                           ],
                                         ),
                                         padding: const EdgeInsets.all(6),
-                                        child: const Icon(Icons.error_outline, color: Colors.red, size: 32),
+                                        child: const Icon(
+                                          Icons.error_outline,
+                                          color: Colors.red,
+                                          size: 32,
+                                        ),
                                       ),
                                       const SizedBox(width: 16),
                                       Expanded(
                                         child: Text(
                                           'Application Error',
                                           style:
-                                              Theme.of(context).textTheme.titleLarge?.copyWith(
+                                              Theme.of(
+                                                context,
+                                              ).textTheme.titleLarge?.copyWith(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
                                                 letterSpacing: 0.5,
@@ -169,18 +203,29 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                                         ),
                                       ),
                                       IconButton(
-                                        icon: const Icon(Icons.close, color: Colors.white, size: 28),
+                                        icon: const Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 28,
+                                        ),
                                         tooltip: 'Close',
                                         splashRadius: 22,
-                                        onPressed: () => setState(() => _isShowOverlay = false),
+                                        onPressed:
+                                            () => setState(
+                                              () => _isShowOverlay = false,
+                                            ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 18,
+                                  ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         error?.exception.toString() ?? '',
@@ -196,29 +241,58 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                                       Container(
                                         decoration: BoxDecoration(
                                           color: Colors.grey[100],
-                                          borderRadius: BorderRadius.circular(16),
+                                          borderRadius: BorderRadius.circular(
+                                            16,
+                                          ),
                                         ),
-                                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 4,
+                                          vertical: 4,
+                                        ),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
                                             Expanded(
                                               child: GestureDetector(
-                                                onTap: () => setState(() => _selectedTab = 0),
+                                                onTap:
+                                                    () => setState(
+                                                      () => _selectedTab = 0,
+                                                    ),
                                                 child: AnimatedContainer(
-                                                  duration: const Duration(milliseconds: 180),
+                                                  duration: const Duration(
+                                                    milliseconds: 180,
+                                                  ),
                                                   curve: Curves.easeInOut,
                                                   decoration: BoxDecoration(
-                                                    color: _selectedTab == 0 ? Colors.red.shade100 : Colors.transparent,
-                                                    borderRadius: BorderRadius.circular(12),
+                                                    color:
+                                                        _selectedTab == 0
+                                                            ? Colors
+                                                                .red
+                                                                .shade100
+                                                            : Colors
+                                                                .transparent,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          12,
+                                                        ),
                                                   ),
-                                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        vertical: 10,
+                                                      ),
                                                   alignment: Alignment.center,
                                                   child: Text(
                                                     'All Logs',
                                                     style: TextStyle(
-                                                      color: _selectedTab == 0 ? Colors.red.shade700 : Colors.black54,
-                                                      fontWeight: FontWeight.w600,
+                                                      color:
+                                                          _selectedTab == 0
+                                                              ? Colors
+                                                                  .red
+                                                                  .shade700
+                                                              : Colors.black54,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                     ),
                                                   ),
                                                 ),
@@ -226,21 +300,44 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                                             ),
                                             Expanded(
                                               child: GestureDetector(
-                                                onTap: () => setState(() => _selectedTab = 1),
+                                                onTap:
+                                                    () => setState(
+                                                      () => _selectedTab = 1,
+                                                    ),
                                                 child: AnimatedContainer(
-                                                  duration: const Duration(milliseconds: 180),
+                                                  duration: const Duration(
+                                                    milliseconds: 180,
+                                                  ),
                                                   curve: Curves.easeInOut,
                                                   decoration: BoxDecoration(
-                                                    color: _selectedTab == 1 ? Colors.red.shade100 : Colors.transparent,
-                                                    borderRadius: BorderRadius.circular(12),
+                                                    color:
+                                                        _selectedTab == 1
+                                                            ? Colors
+                                                                .red
+                                                                .shade100
+                                                            : Colors
+                                                                .transparent,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          12,
+                                                        ),
                                                   ),
-                                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        vertical: 10,
+                                                      ),
                                                   alignment: Alignment.center,
                                                   child: Text(
                                                     'Self-logs',
                                                     style: TextStyle(
-                                                      color: _selectedTab == 1 ? Colors.red.shade700 : Colors.black54,
-                                                      fontWeight: FontWeight.w600,
+                                                      color:
+                                                          _selectedTab == 1
+                                                              ? Colors
+                                                                  .red
+                                                                  .shade700
+                                                              : Colors.black54,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                     ),
                                                   ),
                                                 ),
@@ -254,18 +351,27 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                                       Container(
                                         decoration: BoxDecoration(
                                           color: Colors.grey[900],
-                                          borderRadius: BorderRadius.circular(12),
-                                          border: Border.all(color: Colors.grey[800]!, width: 1),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                          border: Border.all(
+                                            color: Colors.grey[800]!,
+                                            width: 1,
+                                          ),
                                         ),
                                         padding: const EdgeInsets.all(14),
-                                        constraints: const BoxConstraints(maxHeight: 220),
+                                        constraints: const BoxConstraints(
+                                          maxHeight: 220,
+                                        ),
                                         child: Scrollbar(
                                           thumbVisibility: true,
                                           child: SingleChildScrollView(
                                             child:
                                                 _selectedTab == 0
                                                     ? SelectableText(
-                                                      (error?.stack?.toString() ?? ''),
+                                                      (error?.stack
+                                                              ?.toString() ??
+                                                          ''),
                                                       style: const TextStyle(
                                                         color: Colors.white,
                                                         fontFamily: 'monospace',
@@ -274,16 +380,24 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                                                       ),
                                                     )
                                                     : Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
                                                       children:
                                                           relevantLines
                                                               .map(
-                                                                (line) => SelectableText(
+                                                                (
+                                                                  line,
+                                                                ) => SelectableText(
                                                                   line.toString(),
                                                                   style: const TextStyle(
-                                                                    color: Colors.white,
-                                                                    fontFamily: 'monospace',
-                                                                    fontSize: 13.5,
+                                                                    color:
+                                                                        Colors
+                                                                            .white,
+                                                                    fontFamily:
+                                                                        'monospace',
+                                                                    fontSize:
+                                                                        13.5,
                                                                     height: 1.4,
                                                                   ),
                                                                 ),
@@ -295,24 +409,44 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                                       ),
                                       const SizedBox(height: 18),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
                                         children: [
                                           FilledButton.icon(
-                                            icon: const Icon(Icons.copy, size: 20),
+                                            icon: const Icon(
+                                              Icons.copy,
+                                              size: 20,
+                                            ),
                                             label: const Text('Copy Log'),
                                             style: FilledButton.styleFrom(
-                                              backgroundColor: Colors.red.shade600,
+                                              backgroundColor:
+                                                  Colors.red.shade600,
                                               foregroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                                              textStyle: const TextStyle(fontWeight: FontWeight.w600),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 20,
+                                                    vertical: 12,
+                                                  ),
+                                              textStyle: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                               elevation: 2,
                                             ),
                                             onPressed: () {
                                               // TODO: Copy to clipboard
                                               ScaffoldMessenger.of(
                                                 context,
-                                              ).showSnackBar(const SnackBar(content: Text('Log copied to clipboard!')));
+                                              ).showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                    'Log copied to clipboard!',
+                                                  ),
+                                                ),
+                                              );
                                             },
                                           ),
                                         ],

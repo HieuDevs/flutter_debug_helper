@@ -50,7 +50,9 @@ class MyApp extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const EmptyPage()));
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (_) => const EmptyPage()),
+                    );
                   },
                   child: const Text('Push Navigator crash demo'),
                 ),
