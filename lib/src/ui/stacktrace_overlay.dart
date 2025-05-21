@@ -7,7 +7,9 @@ import '../core/error_capture.dart';
 import '../utils/package_name_loader.dart';
 import '../utils/stack_parser.dart';
 
+/// Provides static method to install global error handling for your Flutter app.
 class FlutterDebugHelper {
+  /// Installs global error and zone error handlers, and runs the app with [child] as the root widget.
   static void install(Widget child) {
     FlutterError.onError = (FlutterErrorDetails details) {
       ErrorCapture().capture(details.exception, details.stack);
@@ -25,11 +27,24 @@ class FlutterDebugHelper {
   }
 }
 
+/// A widget that displays an overlay with error details and stack trace when an error occurs.
+///
+/// Place this widget above your app's main [Scaffold] to catch and display errors in development.
 class StackTraceOverlay extends StatefulWidget {
+  /// Creates a [StackTraceOverlay].
+  ///
+  /// [child] is the widget below the overlay.
+  /// [onLogs] is an optional callback for error logs.
+  /// [onlyDev] controls if the overlay only appears in development mode.
   const StackTraceOverlay({super.key, required this.child, this.onLogs, this.onlyDev = true});
 
+  /// The widget below the overlay.
   final Widget child;
+
+  /// Optional callback for error logs.
   final void Function(List<String> logs)? onLogs;
+
+  /// If true, overlay only appears in development mode.
   final bool onlyDev;
   @override
   State<StackTraceOverlay> createState() => _StackTraceOverlayState();
@@ -89,7 +104,7 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
                 child: Container(
-                  color: Colors.black.withOpacity(0.4),
+                  color: Colors.black.withValues(alpha: .4),
                   alignment: Alignment.center,
                   child: Center(
                     child: Padding(
@@ -127,7 +142,7 @@ class _StackTraceOverlayState extends State<StackTraceOverlay> {
                                           shape: BoxShape.circle,
                                           boxShadow: [
                                             BoxShadow(
-                                              color: Colors.red.withOpacity(0.2),
+                                              color: Colors.red.withValues(alpha: .2),
                                               blurRadius: 8,
                                               offset: const Offset(0, 2),
                                             ),

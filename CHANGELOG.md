@@ -1,3 +1,9 @@
+## 1.0.2
+
+### Update
+
+- Update StackTrace UI for better color
+
 ## 1.0.1
 
 ### Fix
