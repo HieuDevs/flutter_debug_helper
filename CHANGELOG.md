@@ -1,3 +1,8 @@
+## 1.0.1
+
+### Fix
+
+- Updated Readme.doc
 
 ## 1.0.0
 

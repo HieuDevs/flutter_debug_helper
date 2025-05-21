@@ -13,6 +13,8 @@ and the Flutter guide for
 
 # Flutter Debug Helper
 
+![Flutter Debug Helper Demo](demo.gif)
+
 A powerful Flutter package that helps you debug your app by providing a beautiful error overlay and comprehensive error tracking capabilities.
 
 [![pub package](https://img.shields.io/pub/v/flutter_debug_helper.svg)](https://pub.dev/packages/flutter_debug_helper)
@@ -33,6 +35,14 @@ Add this to your package's `pubspec.yaml` file:
 ```yaml
 dependencies:
   flutter_debug_helper: ^1.0.0
+```
+
+**Important:** You must also add your `pubspec.yaml` file to your Flutter assets so the package can read your package name for stack trace filtering. Add this to your `pubspec.yaml`:
+
+```yaml
+flutter:
+  assets:
+    - pubspec.yaml
 ```
 
 ## Usage
